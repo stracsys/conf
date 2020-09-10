@@ -1,0 +1,71 @@
+#! /bin/sh
+
+PANEL_HEIGHT=30
+GAP=5
+
+###### Kill if already running #####
+#killall -9 picom  
+####################################
+
+##### Autostart #####
+pgrep -x sxhkd > /dev/null || sxhkd &
+#xfsettingsd &
+picom -C &
+nitrogen --restore &
+#dwall -s home &
+$HOME/.config/polybar/launch.sh
+setxkbmap fr-latin9 &
+#####################
+
+###### Bspc Config #####
+bspc monitor eDP-1 -d dev www work file term graphic video vbox download sys
+#bspc monitor HDMI-1 -d dev
+
+bspc config border_width		1
+bspc config window_gap			$GAP
+
+bspc config top_padding			$((PANEL_HEIGHT-GAP))
+bspc config bottom_padding		-$GAP
+bspc config left_padding		-$GAP
+bspc config right_padding		-$GAP
+
+bspc config split_ratio			0.50
+bspc config borderless_monocle		true
+bspc config gapless_monocle		false
+#bspc config focus_follows_pointer	true
+#######################
+
+##### Bspc Color #####
+#bspc config normal_border_color '#add8e6'
+#bspc config normal_border_color '#222'
+#bspc config focused_border_color '#dc153c'
+bspc config focused_border_color '#a52a2a'
+######################
+
+##### Bspc Rules #####
+#bspc rule -a Gimp desktop='^8' state=floating follow=on
+#bspc rule -a Chromium desktop='^2'
+#bspc rule -a mplayer2 state=floating
+#bspc rule -a Kupfer.py focus=on
+#bspc rule -a Screenkey manage=off
+
+bspc rule -a Lxappearance state=floating follow=on
+bspc rule -a Nitrogen state=floating center=on follow=on
+bspc rule -a Sxiv state=floating
+bspc rule -a file-roller state=floating follow=on
+
+bspc rule -a code-oss desktop='^1' follow=on
+bspc rule -a firefox desktop='^2' follow=on
+bspc rule -a Brave-browser desktop='^2' follow=on
+bspc rule -a Thunar desktop='^4' follow=on
+bspc rule -a Blueman-manager desktop='^4' follow=on
+bspc rule -a Alacritty desktop='^5' follow=on
+bspc rule -a Viewnior desktop='^6' follow=on
+bspc rule -a Sxiv desktop='^6' follow=on
+bspc rule -a Gucharmap desktop='^6' follow=on
+bspc rule -a Parole desktop='^7' follow=on
+bspc rule -a "VirtualBox Manager" desktop='^8' follow=on
+bspc rule -a Transmission-gtk desktop='^9' follow=on
+bspc rule -a nitrogen desktop='^10' follow=on
+bspc rule -a Xfce4-settings-manager desktop='^10' follow=on
+#######################
